@@ -16,7 +16,7 @@ function Profile() {
     return (
         <div className="container py-4">
             <div className="row justify-content-center">
-                <div className="col-lg-10">
+                <div className="col-lg-12">
                     <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
                         <div>
                             <nav aria-label="breadcrumb" className="mb-2">

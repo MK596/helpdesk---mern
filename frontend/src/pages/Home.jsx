@@ -65,8 +65,9 @@ function Home() {
             <div className="container">
                 {/* User Action Cards */}
                 {user && (
-                    <div className="row justify-content-center g-4 mb-5">
-                        <div className="col-md-5">
+                    <div className="row justify-content-center g-3 g-md-4 mb-5">
+                        <div className="col-12 col-md-5">
+
                             <div className="card h-100 border-0 glass-card p-4 hover-translate hover-glow transition-all rounded-4 shadow-sm">
                                 <div className="d-flex align-items-start gap-4">
                                     <div className="bg-gradient-primary text-white p-3 rounded-4 shadow-sm">
@@ -83,7 +84,8 @@ function Home() {
                             </div>
                         </div>
 
-                        <div className="col-md-5">
+                        <div className="col-12 col-md-5">
+
                             <div className="card h-100 border-0 glass-card p-4 hover-translate hover-glow transition-all rounded-4 shadow-sm position-relative">
                                 {activeCount > 0 && (
                                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-3 border-white shadow" style={{ fontSize: '10px', zIndex: 1, padding: '6px 8px' }}>
@@ -130,7 +132,8 @@ function Home() {
                 {user && user.role === 'admin' && (
                     <div className="row justify-content-center mb-5">
                         <div className="col-md-10">
-                            <div className="card border-0 bg-dark text-white p-5 rounded-5 overflow-hidden position-relative shadow-lg">
+                            <div className="card border-0 bg-dark text-white p-4 p-lg-5 rounded-4 rounded-lg-5 overflow-hidden position-relative shadow-lg">
+
                                 <div className="position-relative z-1 d-flex flex-column flex-lg-row align-items-center justify-content-between gap-4">
                                     <div className="text-center text-lg-start">
                                         <div className="badge bg-primary px-3 py-1 rounded-pill mb-3 small fw-bold">SYSTEM ADMIN</div>

@@ -1,7 +1,20 @@
 function Spinner() {
     return (
-        <div className='fixed top-0 left-0 right-0 bottom-0 bg-black/50 z-50 flex justify-center items-center'>
-            <div className='w-16 h-16 border-8 border-t-8 border-gray-200 border-t-blue-600 rounded-full animate-spin'></div>
+        <div className='spinner-container' style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            zIndex: 9999,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
+            <div className="spinner-border text-primary" role="status" style={{ width: '3rem', height: '3rem' }}>
+                <span className="visually-hidden">Loading...</span>
+            </div>
         </div>
     );
 }

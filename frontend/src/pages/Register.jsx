@@ -55,8 +55,9 @@ function Register() {
     return (
         <div className="container py-5 mt-lg-5">
             <div className="row justify-content-center">
-                <div className="col-md-7 col-lg-6">
-                    <div className="card p-4 p-md-5">
+                <div className="col-12 col-md-10 col-lg-7">
+                    <div className="card shadow-sm border-0 auth-card p-4 p-md-5">
+
                         <div className="text-center mb-4">
                             <h2 className="fw-black">Create Account</h2>
                             <p className="text-secondary small">Join our professional support platform</p>

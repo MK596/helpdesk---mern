@@ -89,11 +89,12 @@ function AdminDashboard() {
                         System Overview
                     </h3>
                 </div>
-                <div className="d-flex gap-2">
-                    <Link to="/admin/users" className="btn btn-outline-dark btn-sm rounded-pill px-3 fw-bold d-inline-flex align-items-center gap-2">
+                <div className="d-flex gap-2 w-100 w-md-auto">
+                    <Link to="/admin/users" className="btn btn-outline-dark btn-sm rounded-pill px-3 fw-bold d-flex align-items-center justify-content-center gap-2 flex-grow-1 flex-md-grow-0">
                         <FaUsers /> User Directory
                     </Link>
                 </div>
+
             </div>
 
             {/* Elegant Stats Hub */}
@@ -215,9 +216,10 @@ function AdminDashboard() {
                                         </span>
                                     </td>
                                     <td className="px-4 text-end">
-                                        <span className="btn btn-primary btn-sm rounded-pill fw-bold px-3 py-1 shadow-sm opacity-0-hover transition-all" style={{ fontSize: '0.65rem' }}>
+                                        <span className="btn btn-primary btn-sm rounded-pill fw-bold px-3 py-1 shadow-sm transition-all" style={{ fontSize: '0.65rem' }}>
                                             MANAGE
                                         </span>
+
                                     </td>
                                 </tr>
                             ))}

@@ -151,7 +151,8 @@ function Ticket() {
     return (
         <div className="container py-4">
             <div className="row justify-content-center">
-                <div className="col-lg-11">
+                <div className="col-lg-12">
+
                     <header className="mb-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
                         <div>
                             <BackButton url={user.role === 'admin' ? '/admin' : '/tickets'} />
