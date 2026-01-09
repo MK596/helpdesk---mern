@@ -109,9 +109,10 @@ function Tickets() {
                 </div>
             </div>
 
-            {/* Professional Data Grid */}
+            {/* Professional Data Grid & Mobile List */}
             <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
-                <div className="table-responsive">
+                {/* Desktop Table View */}
+                <div className="table-responsive d-none d-md-block">
                     <table className="table table-hover align-middle mb-0">
                         <thead>
                             <tr className="bg-light bg-opacity-50">
@@ -161,20 +162,57 @@ function Tickets() {
                                     </td>
                                 </tr>
                             ))}
-                            {filteredTickets.length === 0 && (
-                                <tr>
-                                    <td colSpan="5" className="px-4 py-5 text-center text-muted">
-                                        <div className="py-5">
-                                            <FaTicketAlt className="display-4 opacity-10 mb-3" />
-                                            <h6 className="fw-bold text-muted mb-1">No Support Records Found</h6>
-                                            <p className="small mb-0">You haven't submitted any requests or no matches found for your search.</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            )}
                         </tbody>
                     </table>
                 </div>
+
+                {/* Mobile Card View */}
+                <div className="d-md-none p-3">
+                    <div className="d-flex flex-column gap-3">
+                        {filteredTickets.map(ticket => (
+                            <Link
+                                to={`/ticket/${ticket._id}`}
+                                key={ticket._id}
+                                className="text-decoration-none"
+                            >
+                                <div className="card shadow-none border rounded-3 p-3 hover-glow">
+                                    <div className="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <span className="font-monospace fw-bold text-muted" style={{ fontSize: '0.7rem' }}>
+                                                #{ticket._id.slice(-6).toUpperCase()}
+                                            </span>
+                                            <h6 className="fw-bold mb-1 mt-1 text-main">{ticket.title}</h6>
+                                        </div>
+                                        <span className={`status-badge px-2 py-1 rounded-pill fw-bold ${ticket.status === 'Open' ? 'bg-primary text-white' :
+                                            ticket.status === 'In Progress' ? 'bg-warning text-dark' :
+                                                ticket.status === 'Resolved' ? 'bg-success text-white' : 'bg-danger text-white'
+                                            }`} style={{ fontSize: '0.6rem' }}>
+                                            {ticket.status}
+                                        </span>
+                                    </div>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <div className="text-muted fw-bold" style={{ fontSize: '0.65rem' }}>
+                                            {new Date(ticket.createdAt).toLocaleDateString()}
+                                        </div>
+                                        <span className={`badge rounded-pill pt-1 ${ticket.priority === 'High' ? 'text-danger bg-danger bg-opacity-10 border border-danger border-opacity-10' : 'text-muted bg-light'}`} style={{ fontSize: '0.55rem' }}>
+                                            {ticket.priority.toUpperCase()}
+                                        </span>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+
+                {filteredTickets.length === 0 && (
+                    <div className="px-4 py-5 text-center text-muted">
+                        <div className="py-5">
+                            <FaTicketAlt className="display-4 opacity-10 mb-3" />
+                            <h6 className="fw-bold text-muted mb-1">No Support Records Found</h6>
+                            <p className="small mb-0">You haven't submitted any requests or no matches found for your search.</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

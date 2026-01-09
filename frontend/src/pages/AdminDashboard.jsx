@@ -161,9 +161,10 @@ function AdminDashboard() {
                 </div>
             </div>
 
-            {/* Professional Data Grid */}
+            {/* Professional Data Grid & Mobile Management List */}
             <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
-                <div className="table-responsive">
+                {/* Desktop Admin Table */}
+                <div className="table-responsive d-none d-lg-block">
                     <table className="table table-hover align-middle mb-0">
                         <thead>
                             <tr className="bg-light bg-opacity-50">
@@ -222,19 +223,53 @@ function AdminDashboard() {
                                     </td>
                                 </tr>
                             ))}
-                            {filteredTickets.length === 0 && (
-                                <tr>
-                                    <td colSpan="5" className="px-4 py-5 text-center text-muted">
-                                        <div className="py-4">
-                                            <FaTicketAlt className="display-4 opacity-10 mb-3" />
-                                            <p className="fw-bold mb-0">Null results. Adjust filtration criteria.</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            )}
                         </tbody>
                     </table>
                 </div>
+
+                {/* Mobile Admin Card List */}
+                <div className="d-lg-none p-3">
+                    <div className="d-flex flex-column gap-3">
+                        {filteredTickets.map(ticket => (
+                            <div
+                                key={ticket._id}
+                                className="card shadow-none border rounded-3 p-3 hover-glow transition-all"
+                                onClick={() => navigate(`/ticket/${ticket._id}`)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <div className="d-flex justify-content-between align-items-start mb-2">
+                                    <div className="d-flex align-items-center gap-2">
+                                        <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style={{ width: '24px', height: '24px', fontSize: '0.6rem' }}>
+                                            {ticket.user?.name?.charAt(0) || '?'}
+                                        </div>
+                                        <span className="fw-bold small text-main">{ticket.user?.name || 'User'}</span>
+                                    </div>
+                                    <span className={`status-badge px-2 py-1 rounded-pill fw-bold ${getStatusBadge(ticket.status)}`} style={{ fontSize: '0.55rem' }}>
+                                        {ticket.status}
+                                    </span>
+                                </div>
+                                <h6 className="fw-bold mb-2 text-main text-truncate">{ticket.title}</h6>
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <span className="font-monospace fw-bold text-muted" style={{ fontSize: '0.65rem' }}>
+                                        #{ticket._id.slice(-6).toUpperCase()}
+                                    </span>
+                                    <span className={`badge rounded-pill pt-1 ${ticket.priority === 'High' ? 'text-danger bg-danger bg-opacity-10 border border-danger border-opacity-10' : 'text-muted bg-light'}`} style={{ fontSize: '0.55rem' }}>
+                                        {ticket.priority.toUpperCase()}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {filteredTickets.length === 0 && (
+                    <div className="px-4 py-5 text-center text-muted">
+                        <div className="py-4">
+                            <FaTicketAlt className="display-4 opacity-10 mb-3" />
+                            <p className="fw-bold mb-0">Null results. Adjust filtration criteria.</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
