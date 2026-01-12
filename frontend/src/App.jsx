@@ -15,6 +15,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
+import BottomNav from './components/BottomNav';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
       <Router>
         <div className='min-h-screen'>
           <Header />
-          <div className="container mx-auto px-4 pb-20">
+          <div className="container mx-auto px-4 pb-mobile-nav">
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
@@ -41,6 +42,7 @@ function App() {
               </Route>
             </Routes>
           </div>
+          <BottomNav />
         </div>
         <ToastContainer />
       </Router>

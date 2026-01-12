@@ -65,18 +65,18 @@ function Home() {
             <div className="container">
                 {/* User Action Cards */}
                 {user && (
-                    <div className="row justify-content-center g-3 g-md-4 mb-5">
+                    <div className="row justify-content-center g-3 g-md-4 mb-5 px-1 px-md-0">
                         <div className="col-12 col-md-5">
 
                             <div className="card h-100 border-0 glass-card p-3 p-md-4 hover-translate hover-glow transition-all rounded-4 shadow-sm">
-                                <div className="d-flex align-items-start gap-3 gap-md-4">
-                                    <div className="bg-gradient-primary text-white p-3 rounded-4 shadow-sm">
+                                <div className="d-flex align-items-center gap-3 gap-md-4">
+                                    <div className="bg-gradient-primary text-white p-3 rounded-4 shadow-sm d-flex align-items-center justify-content-center" style={{ minWidth: '60px', height: '60px' }}>
                                         <FaPlus className="fs-3" />
                                     </div>
                                     <div className="flex-grow-1">
-                                        <h4 className="fw-bold mb-2">Create Ticket</h4>
-                                        <p className="text-muted small mb-4">Submit a new request and get technical assistance within minutes.</p>
-                                        <Link to="/new-ticket" className="btn btn-primary btn-sm rounded-pill px-4 fw-bold d-flex align-items-center gap-2 w-fit-content">
+                                        <h5 className="fw-bold mb-1">Create Ticket</h5>
+                                        <p className="text-muted small mb-3 mb-md-4 d-none d-sm-block">Submit a new request and get technical assistance within minutes.</p>
+                                        <Link to="/new-ticket" className="btn btn-primary btn-sm rounded-pill px-4 fw-bold d-flex align-items-center gap-2 w-fit-content shadow-sm">
                                             Open New <FaArrowRight size={12} />
                                         </Link>
                                     </div>
@@ -88,19 +88,19 @@ function Home() {
 
                             <div className="card h-100 border-0 glass-card p-3 p-md-4 hover-translate hover-glow transition-all rounded-4 shadow-sm position-relative">
                                 {activeCount > 0 && (
-                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-3 border-white shadow" style={{ fontSize: '10px', zIndex: 1, padding: '6px 8px' }}>
-                                        {activeCount} PENDING
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-3 border-white shadow" style={{ fontSize: '9px', zIndex: 1, padding: '5px 7px' }}>
+                                        {activeCount}
                                     </span>
                                 )}
-                                <div className="d-flex align-items-start gap-3 gap-md-4">
-                                    <div className="bg-dark text-white p-3 rounded-4 shadow-sm">
+                                <div className="d-flex align-items-center gap-3 gap-md-4">
+                                    <div className="bg-dark text-white p-3 rounded-4 shadow-sm d-flex align-items-center justify-content-center" style={{ minWidth: '60px', height: '60px' }}>
                                         <FaTicketAlt className="fs-3" />
                                     </div>
                                     <div className="flex-grow-1">
-                                        <h4 className="fw-bold mb-2">My History</h4>
-                                        <p className="text-muted small mb-4">View your submitted tickets, track status and read team replies.</p>
-                                        <Link to="/tickets" className="btn btn-outline-dark btn-sm rounded-pill px-4 fw-bold d-flex align-items-center gap-2 w-fit-content">
-                                            View Archive <FaArrowRight size={12} />
+                                        <h5 className="fw-bold mb-1">My History</h5>
+                                        <p className="text-muted small mb-3 mb-md-4 d-none d-sm-block">View your submitted tickets, track status and read team replies.</p>
+                                        <Link to="/tickets" className="btn btn-outline-dark btn-sm rounded-pill px-4 fw-bold d-flex align-items-center gap-2 w-fit-content border-0 bg-light">
+                                            View Records <FaArrowRight size={12} />
                                         </Link>
                                     </div>
                                 </div>
