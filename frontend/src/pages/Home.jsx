@@ -31,28 +31,35 @@ function Home() {
 
     return (
         <div className="home-wrapper">
-            {/* Hero Section */}
-            <header className="hero-section py-4 py-md-5 mb-4 mb-md-5 position-relative overflow-hidden text-center">
+            {/* Hero Section - Compact Mobile */}
+            <header className="hero-section py-2 py-md-5 mb-3 mb-md-5 position-relative overflow-hidden text-center">
                 <div className="container position-relative z-1">
-                    <div className="mb-3 d-inline-block">
+                    <div className="mb-2 mb-md-3 d-none d-sm-inline-block">
                         <span className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold letter-spacing-tight d-flex align-items-center gap-2 mx-auto" style={{ width: 'fit-content' }}>
                             <FaShieldAlt size={14} /> Official Support Portal
                         </span>
                     </div>
-                    <h1 className="display-4 fw-black mb-3 text-gradient">How can we help today?</h1>
-                    <p className="lead text-muted mx-auto mb-4 px-2" style={{ maxWidth: '600px' }}>
+                    <h1 className="fw-black mb-2 mb-md-3 text-gradient" style={{ fontSize: 'clamp(1.5rem, 5vw, 3rem)' }}>How can we help today?</h1>
+                    <p className="text-muted mx-auto mb-3 mb-md-4 px-2 d-none d-sm-block" style={{ maxWidth: '600px', fontSize: 'clamp(0.9rem, 2vw, 1.25rem)' }}>
                         {user ? (
                             <>Welcome back, <span className="fw-bold text-primary">{user.name}</span>. Track resolution progress or start a new conversation with our experts.</>
                         ) : (
                             <>The fastest way to resolve your technical issues. Sign in to access your personalized support dashboard.</>
                         )}
                     </p>
+                    <p className="text-muted mx-auto mb-3 px-2 d-sm-none small">
+                        {user ? (
+                            <>Welcome back, <span className="fw-bold text-primary">{user.name}</span>!</>
+                        ) : (
+                            <>Quick support access. Sign in to get started.</>
+                        )}
+                    </p>
                     {!user && (
                         <div className="d-flex flex-column flex-sm-row justify-content-center gap-2 gap-sm-3 px-4 px-sm-0">
-                            <Link to="/login" className="btn btn-primary px-4 py-2 rounded-pill shadow hover-translate transition-all">
+                            <Link to="/login" className="btn btn-primary px-3 px-sm-4 py-2 rounded-pill shadow hover-translate transition-all">
                                 Get Started
                             </Link>
-                            <Link to="/register" className="btn btn-outline-dark px-4 py-2 rounded-pill hover-translate transition-all">
+                            <Link to="/register" className="btn btn-outline-dark px-3 px-sm-4 py-2 rounded-pill hover-translate transition-all">
                                 Create Account
                             </Link>
                         </div>

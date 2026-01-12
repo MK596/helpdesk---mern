@@ -28,15 +28,22 @@ function Header() {
     };
 
     return (
-        <nav className={`navbar border-bottom sticky-top py-2 py-sm-3 header-nav transition-all ${scrolled ? 'scrolled shadow-sm' : ''}`}>
-            <div className="container d-flex align-items-center justify-content-between px-3 px-sm-4">
-                <Link className="navbar-brand d-flex align-items-center gap-1 gap-sm-2 text-primary" to="/">
-                    <FaLifeRing className="fs-5 fs-sm-4" />
-                    <span className="fw-black" style={{ fontSize: 'clamp(0.9rem, 4.5vw, 1.25rem)', letterSpacing: '-0.02em' }}>HELPDESK</span>
+        <nav
+            className={`navbar border-bottom sticky-top header-nav transition-all ${scrolled ? 'scrolled shadow-sm' : ''}`}
+            style={{
+                paddingTop: 'clamp(0.15rem, 2vw, 0.75rem)',
+                paddingBottom: 'clamp(0.15rem, 2vw, 0.75rem)'
+            }}
+        >
+            <div className="container d-flex align-items-center justify-content-between px-2 px-sm-4">
+                <Link className="navbar-brand d-flex align-items-center gap-1 gap-sm-2 text-primary m-0 p-0" to="/">
+                    <FaLifeRing className="d-none d-sm-inline" style={{ fontSize: '1.25rem' }} />
+                    <FaLifeRing className="d-sm-none" style={{ fontSize: '0.75rem' }} />
+                    <span className="fw-black" style={{ fontSize: 'clamp(0.75rem, 3vw, 1.25rem)', letterSpacing: '-0.02em' }}>HELPDESK</span>
                 </Link>
 
                 <div className="ms-auto">
-                    <ul className="navbar-nav flex-row align-items-center gap-2 gap-sm-4">
+                    <ul className="navbar-nav flex-row align-items-center gap-1 gap-sm-4 m-0">
                         {user ? (
                             <>
                                 {user.role === 'admin' && (
@@ -52,21 +59,38 @@ function Header() {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <button className="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center border-0 bg-danger bg-opacity-10 text-danger rounded-circle p-2" onClick={onLogout} title="Logout" style={{ width: '34px', height: '34px' }}>
-                                        <FaSignOutAlt size={14} />
+                                    <button
+                                        className="btn btn-outline-danger d-flex align-items-center justify-content-center border-0 bg-danger bg-opacity-10 text-danger rounded-circle"
+                                        onClick={onLogout}
+                                        title="Logout"
+                                        style={{
+                                            width: 'clamp(24px, 5vw, 34px)',
+                                            height: 'clamp(24px, 5vw, 34px)',
+                                            padding: '0.2rem'
+                                        }}
+                                    >
+                                        <FaSignOutAlt size={window.innerWidth < 768 ? 10 : 14} />
                                     </button>
                                 </li>
                             </>
                         ) : (
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link d-flex align-items-center gap-1 fw-bold px-1" to="/login">
-                                        <FaSignInAlt size={15} /> <span style={{ fontSize: '0.9rem' }}>Login</span>
+                                    <Link className="nav-link d-flex align-items-center gap-1 fw-bold p-0 px-sm-1" to="/login">
+                                        <FaSignInAlt size={window.innerWidth < 768 ? 12 : 15} />
+                                        <span className="d-none d-sm-inline" style={{ fontSize: '0.9rem' }}>Login</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="btn btn-primary btn-sm d-flex align-items-center gap-1 px-3 shadow-sm border-0" to="/register">
-                                        <FaUser size={13} /> <span style={{ fontSize: '0.9rem' }}>Register</span>
+                                    <Link
+                                        className="btn btn-primary d-flex align-items-center gap-1 shadow-sm border-0"
+                                        to="/register"
+                                        style={{
+                                            padding: 'clamp(0.2rem, 1vw, 0.5rem) clamp(0.4rem, 2vw, 1rem)',
+                                            fontSize: 'clamp(0.75rem, 2vw, 0.9rem)'
+                                        }}
+                                    >
+                                        <FaUser size={window.innerWidth < 768 ? 10 : 13} /> <span>Register</span>
                                     </Link>
                                 </li>
                             </>
