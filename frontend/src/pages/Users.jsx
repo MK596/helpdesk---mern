@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import Spinner from '../components/Spinner';
 import BackButton from '../components/BackButton';
@@ -46,9 +46,18 @@ function Users() {
     }
 
     return (
-        <div className="container py-4">
-            <BackButton url='/admin' />
-            <h1 className="fw-black mb-4 mt-4">System Users</h1>
+        <div className="container py-3 py-md-4">
+            <nav aria-label="breadcrumb" className="mb-2 d-none d-sm-block">
+                <ol className="breadcrumb small text-uppercase fw-bold m-0 p-0" style={{ letterSpacing: '0.05em' }}>
+                    <li className="breadcrumb-item"><Link to="/" className="text-decoration-none text-muted">Home</Link></li>
+                    <li className="breadcrumb-item"><Link to="/admin" className="text-decoration-none text-muted">Dashboard</Link></li>
+                    <li className="breadcrumb-item active text-primary" aria-current="page">Users</li>
+                </ol>
+            </nav>
+            <div className="d-flex align-items-center gap-3 mb-4">
+                <BackButton url='/admin' className="m-0" />
+                <h3 className="fw-black mb-0 letter-spacing-tight fs-2">User Directory</h3>
+            </div>
 
             <div className='card border-0 shadow-sm rounded-4 overflow-hidden bg-white'>
                 {/* Desktop Table */}
@@ -94,12 +103,12 @@ function Users() {
                             <div key={u._id} className="card shadow-sm border-0 rounded-4 overflow-hidden mb-1" style={{ background: 'linear-gradient(to right, #ffffff, #fafafa)' }}>
                                 <div className="card-body p-3">
                                     <div className="d-flex align-items-center gap-3 mb-3">
-                                        <div className={`p-2 rounded-circle d-flex align-items-center justify-content-center shadow-sm ${u.role === 'admin' ? 'bg-primary text-white' : 'bg-light text-primary'}`} style={{ width: '40px', height: '40px' }}>
+                                        <div className={`p-2 rounded-circle d-flex align-items-center justify-content-center shadow-sm ${u.role === 'admin' ? 'bg-primary text-white' : 'bg-light text-primary'}`} style={{ width: '42px', height: '42px' }}>
                                             {u.role === 'admin' ? <FaUserShield size={18} /> : <FaUser size={18} />}
                                         </div>
                                         <div className="flex-grow-1">
                                             <div className="fw-black text-main lh-1 mb-1" style={{ fontSize: '16px' }}>{u.name}</div>
-                                            <div className="text-muted" style={{ fontSize: '12px' }}>{u.email}</div>
+                                            <div className="text-muted" style={{ fontSize: '11px' }}>{u.email}</div>
                                         </div>
                                         <span className={`badge rounded-pill pt-1 px-2 fw-black ${u.role === 'admin' ? 'bg-primary bg-opacity-10 text-primary border border-primary border-opacity-10' : 'bg-info bg-opacity-10 text-info border border-info border-opacity-10'}`} style={{ fontSize: '9px' }}>
                                             {u.role.toUpperCase()}

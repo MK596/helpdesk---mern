@@ -1,7 +1,8 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
-import { FaUserCircle, FaEnvelope, FaShieldAlt, FaIdBadge, FaCheckCircle, FaUserShield } from 'react-icons/fa';
+import BackButton from '../components/BackButton';
+import { FaUserCircle, FaEnvelope, FaShieldAlt, FaIdBadge, FaCheckCircle } from 'react-icons/fa';
 
 function Profile() {
     const { user } = useContext(AuthContext);
@@ -13,94 +14,96 @@ function Profile() {
     const { name, email } = formData;
 
     return (
-        <div className="container py-4">
-            <div className="row justify-content-center">
-                <div className="col-lg-12">
-                    <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
-                        <div>
-                            <nav aria-label="breadcrumb" className="mb-2">
-                                <ol className="breadcrumb small text-uppercase fw-black m-0 p-0" style={{ letterSpacing: '0.05em' }}>
-                                    <li className="breadcrumb-item"><Link to="/" className="text-decoration-none text-muted">Home</Link></li>
-                                    <li className="breadcrumb-item active text-primary" aria-current="page">Settings</li>
-                                </ol>
-                            </nav>
-                            <h3 className="fw-black mb-0 fs-2">Account Profile</h3>
-                        </div>
-                        <Link to="/" className="btn btn-dark btn-sm rounded-pill px-4 py-2 fw-black shadow-sm d-flex align-items-center justify-content-center gap-2 border-0" style={{ fontSize: '12px' }}>
-                            RETURN TO HOME
-                        </Link>
+        <div className="container py-3 py-md-4">
+            {/* Optimized Header Area */}
+            <div className="mb-4">
+                <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3">
+                    <div>
+                        <nav aria-label="breadcrumb" className="mb-1 d-none d-sm-block">
+                            <ol className="breadcrumb small text-uppercase fw-bold m-0 p-0" style={{ letterSpacing: '0.05em' }}>
+                                <li className="breadcrumb-item"><Link to="/" className="text-decoration-none text-muted">Home</Link></li>
+                                <li className="breadcrumb-item active text-primary" aria-current="page">Settings</li>
+                            </ol>
+                        </nav>
+                        <h3 className="fw-black mb-0 letter-spacing-tight fs-2">
+                            Account Profile
+                        </h3>
+                        <p className="text-muted small mb-0 fw-bold d-sm-none text-uppercase opacity-75" style={{ fontSize: '10px', letterSpacing: '0.05em' }}>User Identity</p>
                     </div>
+                    <div className="d-flex gap-2 w-100 w-sm-auto">
+                        <BackButton url="/" className="flex-grow-1 flex-sm-grow-0" />
+                    </div>
+                </div>
+            </div>
 
-                    <div className="row g-3">
-                        <div className="col-md-7">
-                            <div className="card shadow-sm h-100 overflow-hidden">
-                                <div className="card-header bg-primary text-white p-3 border-0 d-flex align-items-center gap-2">
-                                    <FaUserCircle className="fs-5" />
-                                    <h6 className="fw-bold mb-0">Personal Information</h6>
+            <div className="row g-3">
+                <div className="col-md-7">
+                    <div className="card shadow-sm border-0 rounded-4 overflow-hidden h-100 bg-white">
+                        <div className="card-header bg-primary text-white p-3 border-0 d-flex align-items-center gap-2">
+                            <FaUserCircle className="fs-5" />
+                            <h6 className="fw-black mb-0 text-uppercase small" style={{ letterSpacing: '0.05em' }}>Personal Information</h6>
+                        </div>
+                        <div className="card-body p-4">
+                            <div className="mb-4">
+                                <label className="small fw-black text-muted text-uppercase d-block mb-2" style={{ fontSize: '10px', letterSpacing: '0.05em' }}>Full Name</label>
+                                <div className="bg-light p-3 rounded-4 border-0 d-flex align-items-center gap-3">
+                                    <FaIdBadge className="text-primary opacity-50" />
+                                    <span className="fw-black text-dark">{name}</span>
                                 </div>
-                                <div className="card-body p-3">
-                                    <div className="mb-3">
-                                        <label className="small fw-bold text-muted text-uppercase d-block mb-1" style={{ fontSize: '9px' }}>Full Name</label>
-                                        <div className="bg-light p-2 rounded border small d-flex align-items-center gap-2">
-                                            <FaIdBadge className="text-primary opacity-50" />
-                                            <span className="fw-bold">{name}</span>
-                                        </div>
-                                    </div>
+                            </div>
 
-                                    <div className="mb-3">
-                                        <label className="small fw-bold text-muted text-uppercase d-block mb-1" style={{ fontSize: '9px' }}>Email Address</label>
-                                        <div className="bg-light p-2 rounded border small d-flex align-items-center gap-2">
-                                            <FaEnvelope className="text-primary opacity-50" />
-                                            <span className="fw-bold">{email}</span>
-                                        </div>
-                                    </div>
+                            <div className="mb-4">
+                                <label className="small fw-black text-muted text-uppercase d-block mb-2" style={{ fontSize: '10px', letterSpacing: '0.05em' }}>Email Address</label>
+                                <div className="bg-light p-3 rounded-4 border-0 d-flex align-items-center gap-3">
+                                    <FaEnvelope className="text-primary opacity-50" />
+                                    <span className="fw-black text-dark">{email}</span>
+                                </div>
+                            </div>
 
-                                    <div>
-                                        <label className="small fw-bold text-muted text-uppercase d-block mb-1" style={{ fontSize: '9px' }}>Role Status</label>
-                                        <div className={`p-2 rounded border small d-flex align-items-center justify-content-between ${user?.role === 'admin' ? 'bg-primary bg-opacity-10 border-primary text-primary' : 'bg-light'}`}>
-                                            <div className="d-flex align-items-center gap-2">
-                                                <FaShieldAlt />
-                                                <span className="fw-bold text-uppercase">{user?.role}</span>
-                                            </div>
-                                            {user?.role === 'admin' && <FaCheckCircle />}
-                                        </div>
+                            <div>
+                                <label className="small fw-black text-muted text-uppercase d-block mb-2" style={{ fontSize: '10px', letterSpacing: '0.05em' }}>Role Status</label>
+                                <div className={`p-3 rounded-4 border-0 d-flex align-items-center justify-content-between ${user?.role === 'admin' ? 'bg-primary bg-opacity-10 text-primary' : 'bg-light text-dark'}`}>
+                                    <div className="d-flex align-items-center gap-3">
+                                        <FaShieldAlt className={user?.role === 'admin' ? 'text-primary' : 'text-muted'} />
+                                        <span className="fw-black text-uppercase">{user?.role}</span>
                                     </div>
+                                    {user?.role === 'admin' && <FaCheckCircle className="text-primary" />}
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div className="col-md-5">
-                            <div className="card shadow-sm p-3 h-100">
-                                <h6 className="fw-bold mb-3 d-flex align-items-center gap-2">
-                                    <FaShieldAlt className="text-primary" /> Permissions
-                                </h6>
+                <div className="col-md-5">
+                    <div className="card shadow-sm border-0 rounded-4 p-4 h-100 bg-white">
+                        <h6 className="fw-black mb-4 d-flex align-items-center gap-2 text-uppercase small" style={{ letterSpacing: '0.05em' }}>
+                            <FaShieldAlt className="text-primary" /> Permissions
+                        </h6>
 
-                                {user?.role === 'admin' ? (
-                                    <div className="text-center py-3">
-                                        <div className="bg-success bg-opacity-10 text-success rounded-circle d-inline-flex p-3 mb-2">
-                                            <FaCheckCircle size={24} />
-                                        </div>
-                                        <h6 className="fw-bold mb-1">Admin Access</h6>
-                                        <p className="small text-muted mb-0">Global management enabled.</p>
-                                    </div>
-                                ) : (
-                                    <div className="text-center py-3">
-                                        <div className="bg-light text-muted rounded-circle d-inline-flex p-3 mb-2">
-                                            <FaShieldAlt size={24} />
-                                        </div>
-                                        <h6 className="fw-bold mb-1">Standard Access</h6>
-                                        <p className="small text-muted mb-0">Limited to personal ticket management.</p>
-                                    </div>
-                                )}
+                        {user?.role === 'admin' ? (
+                            <div className="text-center py-4 bg-primary bg-opacity-5 rounded-4 mb-4">
+                                <div className="bg-primary text-white rounded-circle d-inline-flex p-3 mb-3 shadow-sm">
+                                    <FaCheckCircle size={28} />
+                                </div>
+                                <h6 className="fw-black mb-1">Administrative Level</h6>
+                                <p className="small text-muted mb-0 px-3">You have complete access to system controls and user management.</p>
+                            </div>
+                        ) : (
+                            <div className="text-center py-4 bg-light rounded-4 mb-4">
+                                <div className="bg-white text-muted rounded-circle d-inline-flex p-3 mb-3 shadow-sm border">
+                                    <FaShieldAlt size={28} />
+                                </div>
+                                <h6 className="fw-black mb-1">Standard Access</h6>
+                                <p className="small text-muted mb-0 px-3">Authorized for personal support request management only.</p>
+                            </div>
+                        )}
 
-                                <hr className="my-3 opacity-10" />
-
-                                <div className="p-2 rounded bg-light small">
-                                    <div className="d-flex gap-2">
-                                        <FaCheckCircle className="text-success mt-1" size={12} />
-                                        <div className="text-muted" style={{ fontSize: '10px' }}>
-                                            Account is secured with session-based JWT encryption.
-                                        </div>
+                        <div className="mt-auto pt-3">
+                            <div className="p-3 rounded-4 bg-light border-0">
+                                <div className="d-flex gap-3">
+                                    <FaCheckCircle className="text-success mt-1" size={14} />
+                                    <div className="text-muted fw-bold" style={{ fontSize: '11px', lineHeight: '1.5' }}>
+                                        Account secured with active JWT encryption. All operations are logged.
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +112,7 @@ function Profile() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Profile;

@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import Spinner from '../components/Spinner';
 import BackButton from '../components/BackButton';
-import { FaUserShield, FaClock, FaCheckCircle, FaExclamationCircle, FaPaperPlane, FaTrash, FaUserEdit, FaInfoCircle, FaEdit, FaSave, FaTimes } from 'react-icons/fa';
+import { FaUserShield, FaClock, FaCheckCircle, FaExclamationCircle, FaTrash, FaUserEdit, FaInfoCircle, FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 
 function Ticket() {
     const [ticket, setTicket] = useState(null);
@@ -135,10 +135,11 @@ function Ticket() {
 
     if (!ticket) {
         return (
-            <div className='container py-4 text-center'>
+            <div className='container py-5 text-center'>
                 <FaExclamationCircle className='text-danger fs-2 mb-3' />
-                <h4 className='fw-bold'>Ticket Not Found</h4>
-                <BackButton url='/' />
+                <h4 className='fw-black'>Ticket Not Found</h4>
+                <p className="text-muted small">This record might have been deleted or moved.</p>
+                <BackButton url='/' className="mt-4 mx-auto" />
             </div>
         );
     }
@@ -154,35 +155,42 @@ function Ticket() {
     };
 
     return (
-        <div className="container py-4">
+        <div className="container py-3 py-md-4">
             <div className="row justify-content-center">
-                <div className="col-lg-12">
-
-                    <header className="mb-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-                        <div>
-                            <BackButton url={user.role === 'admin' ? '/admin' : '/tickets'} />
-                            <div className="d-flex align-items-center gap-2 mt-3">
-                                <span className={`status-badge text-white ${getStatusClass(ticket.status)}`}>{ticket.status}</span>
-                                <span className="small text-muted">ID: {ticket._id.toUpperCase().slice(-8)}</span>
+                <div className="col-12">
+                    {/* Professional Header */}
+                    <header className="mb-4">
+                        <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3">
+                            <div className="w-100">
+                                <nav aria-label="breadcrumb" className="mb-2 d-none d-sm-block">
+                                    <ol className="breadcrumb small text-uppercase fw-bold m-0 p-0" style={{ letterSpacing: '0.05em' }}>
+                                        <li className="breadcrumb-item"><Link to="/" className="text-decoration-none text-muted">Home</Link></li>
+                                        <li className="breadcrumb-item"><Link to={user.role === 'admin' ? '/admin' : '/tickets'} className="text-decoration-none text-muted">{user.role === 'admin' ? 'Dashboard' : 'Records'}</Link></li>
+                                        <li className="breadcrumb-item active text-primary" aria-current="page">Case #{ticket._id.slice(-6).toUpperCase()}</li>
+                                    </ol>
+                                </nav>
+                                <div className="d-flex align-items-center gap-3">
+                                    <BackButton url={user.role === 'admin' ? '/admin' : '/tickets'} className="m-0" />
+                                    <h3 className="fw-black mb-0 letter-spacing-tight fs-2 flex-grow-1">{ticket.title}</h3>
+                                </div>
+                                <div className="d-flex align-items-center gap-2 mt-2">
+                                    <span className={`status-badge text-white rounded-pill px-3 py-1 fw-black ${getStatusClass(ticket.status)}`} style={{ fontSize: '9px' }}>{ticket.status.toUpperCase()}</span>
+                                    <span className="text-muted font-monospace" style={{ fontSize: '10px' }}>ID: {ticket._id.toUpperCase()}</span>
+                                </div>
                             </div>
-                            <h3 className="fw-bold mt-2 mb-0">{ticket.title}</h3>
-                        </div>
 
-                        <div className="d-flex gap-2">
-                            {user.role !== 'admin' && !isEditing && (
-                                <>
-                                    {ticket.status !== 'Closed' && (
-                                        <>
-                                            <button onClick={() => setIsEditing(true)} className="btn btn-outline-primary btn-sm fw-bold d-flex align-items-center gap-2">
-                                                <FaEdit /> EDIT DETAILS
-                                            </button>
-                                            <button onClick={onTicketClose} className="btn btn-outline-warning btn-sm fw-bold">
-                                                CLOSE TICKET
-                                            </button>
-                                        </>
-                                    )}
-                                </>
-                            )}
+                            <div className="d-flex gap-2 w-100 w-sm-auto">
+                                {user.role !== 'admin' && !isEditing && ticket.status !== 'Closed' && (
+                                    <>
+                                        <button onClick={() => setIsEditing(true)} className="btn btn-dark btn-sm rounded-pill px-4 py-2 fw-black d-flex align-items-center justify-content-center gap-2 flex-grow-1 flex-sm-grow-0 shadow-sm border-0">
+                                            <FaEdit size={12} /> <span className="small">EDIT</span>
+                                        </button>
+                                        <button onClick={onTicketClose} className="btn btn-light border btn-sm rounded-pill px-4 py-2 fw-black d-flex align-items-center justify-content-center gap-2 flex-grow-1 flex-sm-grow-0 shadow-sm">
+                                            <span className="small">CLOSE</span>
+                                        </button>
+                                    </>
+                                )}
+                            </div>
                         </div>
                     </header>
 
@@ -190,28 +198,28 @@ function Ticket() {
                         <div className="col-lg-8">
                             {/* Request Info */}
                             {isEditing ? (
-                                <div className="card border shadow-sm p-4 mb-3">
+                                <div className="card border-0 shadow-sm p-4 mb-3 rounded-4 bg-white">
                                     <div className="d-flex justify-content-between align-items-center mb-3">
-                                        <h5 className="fw-bold mb-0">Edit Ticket Details</h5>
+                                        <h5 className="fw-black mb-0">Edit Details</h5>
                                         <button onClick={() => setIsEditing(false)} className="btn btn-link text-muted p-0 text-decoration-none">
                                             <FaTimes />
                                         </button>
                                     </div>
                                     <form onSubmit={onUserUpdate}>
                                         <div className="mb-3">
-                                            <label className="form-label small fw-bold text-uppercase text-muted" style={{ fontSize: '9px' }}>Ticket Title</label>
+                                            <label className="form-label small fw-bold text-uppercase text-muted" style={{ fontSize: '9px' }}>Title</label>
                                             <input
                                                 type="text"
-                                                className="form-control form-control-sm"
+                                                className="form-control form-control-sm rounded-3 px-3 py-2"
                                                 value={editTitle}
                                                 onChange={(e) => setEditTitle(e.target.value)}
                                                 required
                                             />
                                         </div>
                                         <div className="mb-3">
-                                            <label className="form-label small fw-bold text-uppercase text-muted" style={{ fontSize: '9px' }}>Priority Level</label>
+                                            <label className="form-label small fw-bold text-uppercase text-muted" style={{ fontSize: '9px' }}>Priority</label>
                                             <select
-                                                className="form-select form-select-sm"
+                                                className="form-select form-select-sm rounded-3 px-3 py-2"
                                                 value={editPriority}
                                                 onChange={(e) => setEditPriority(e.target.value)}
                                             >
@@ -223,7 +231,7 @@ function Ticket() {
                                         <div className="mb-3">
                                             <label className="form-label small fw-bold text-uppercase text-muted" style={{ fontSize: '9px' }}>Description</label>
                                             <textarea
-                                                className="form-control form-control-sm"
+                                                className="form-control form-control-sm rounded-3 px-3 py-2"
                                                 rows="5"
                                                 value={editDescription}
                                                 onChange={(e) => setEditDescription(e.target.value)}
@@ -231,73 +239,78 @@ function Ticket() {
                                             ></textarea>
                                         </div>
                                         <div className="d-flex gap-2">
-                                            <button type="submit" className="btn btn-primary btn-sm fw-bold px-4 d-flex align-items-center gap-2">
+                                            <button type="submit" className="btn btn-primary btn-sm rounded-pill px-4 py-2 fw-black shadow-sm d-flex align-items-center gap-2">
                                                 <FaSave /> SAVE CHANGES
                                             </button>
-                                            <button type="button" onClick={() => setIsEditing(false)} className="btn btn-light btn-sm fw-bold px-4">
+                                            <button type="button" onClick={() => setIsEditing(false)} className="btn btn-light btn-sm rounded-pill px-4 py-2 fw-black">
                                                 CANCEL
                                             </button>
                                         </div>
                                     </form>
                                 </div>
                             ) : (
-                                <>
-                                    <div className="card border shadow-sm p-3 mb-3">
-                                        <div className="d-flex align-items-center gap-2 mb-3">
-                                            <div className="bg-dark text-white rounded px-2 py-1 fw-bold small">
-                                                {ticket.user?.name?.charAt(0) || 'U'}
+                                <div className="mb-3">
+                                    <div className="card border-0 shadow-sm p-4 rounded-4 bg-white mb-3">
+                                        <div className="d-flex align-items-center gap-3 mb-4">
+                                            <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm fw-black" style={{ width: '45px', height: '45px', fontSize: '18px' }}>
+                                                {ticket.user?.name?.charAt(0).toUpperCase() || 'U'}
                                             </div>
-                                            <div className="fw-bold small">{ticket.user?.name}</div>
-                                            <div className="ms-auto small text-muted font-monospace" style={{ fontSize: '10px' }}>
-                                                {new Date(ticket.createdAt).toLocaleString()}
+                                            <div>
+                                                <div className="fw-black text-dark lh-1 mb-1" style={{ fontSize: '16px' }}>{ticket.user?.name}</div>
+                                                <div className="text-muted small fw-bold opacity-75">{new Date(ticket.createdAt).toLocaleString()}</div>
                                             </div>
                                         </div>
-                                        <div className="p-3 bg-light rounded-2 border">
-                                            <p className="small mb-0 whitespace-pre-wrap">{ticket.description}</p>
+                                        <div className="p-3 bg-light rounded-4 border-0">
+                                            <p className="small mb-0 whitespace-pre-wrap lh-lg" style={{ fontSize: '14px', color: '#1e293b' }}>{ticket.description}</p>
                                         </div>
-                                        <div className="mt-2 small fw-bold text-uppercase text-muted" style={{ fontSize: '10px' }}>
-                                            Priority: <span className={ticket.priority === 'High' ? 'text-danger' : 'text-success'}>{ticket.priority}</span>
+                                        <div className="mt-4 d-flex align-items-center gap-3">
+                                            <div className="d-flex align-items-center gap-2">
+                                                <span className="small fw-black text-uppercase text-muted" style={{ fontSize: '9px' }}>Priority:</span>
+                                                <span className={`badge rounded-pill px-3 py-1 ${ticket.priority === 'High' ? 'text-danger bg-danger bg-opacity-10' : 'text-success bg-success bg-opacity-10'}`} style={{ fontSize: '9px' }}>
+                                                    {ticket.priority.toUpperCase()}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    {/* Response Info */}
-                                    <div className={`card border shadow-sm p-3 ${ticket.adminReply ? 'border-start border-4 border-success' : ''}`}>
+                                    {/* Response Section */}
+                                    <div className={`card border-0 shadow-sm p-4 rounded-4 ${ticket.adminReply ? 'bg-primary bg-opacity-5 border-start border-4 border-primary' : 'bg-white'}`}>
                                         <div className="d-flex align-items-center gap-2 mb-3">
-                                            <div className="bg-success text-white rounded p-1">
+                                            <div className="bg-primary text-white rounded p-1 d-flex align-items-center">
                                                 <FaUserShield size={14} />
                                             </div>
-                                            <div className="fw-bold small text-success">Support Response</div>
+                                            <div className="fw-black small text-primary text-uppercase" style={{ letterSpacing: '0.05em' }}>Support Response</div>
                                         </div>
 
                                         {ticket.adminReply ? (
-                                            <div className="p-3 border rounded-2">
-                                                <p className="small mb-0 fst-italic">"{ticket.adminReply}"</p>
-                                                <div className="mt-2 text-success fw-bold small text-uppercase" style={{ fontSize: '9px' }}>
-                                                    <FaCheckCircle className="me-1" /> RESOLVED
+                                            <div className="p-3 bg-white rounded-3 shadow-sm border">
+                                                <p className="small mb-0 text-dark lh-lg" style={{ fontSize: '14px' }}>{ticket.adminReply}</p>
+                                                <div className="mt-3 text-success fw-black small text-uppercase d-flex align-items-center gap-1" style={{ fontSize: '10px' }}>
+                                                    <FaCheckCircle /> RESOLVED
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="text-center py-3">
-                                                <FaClock className="text-muted opacity-25 mb-2" size={24} />
-                                                <p className="small text-muted fw-bold text-uppercase mb-0" style={{ fontSize: '9px' }}>Awaiting Support...</p>
+                                            <div className="text-center py-4 bg-light rounded-3">
+                                                <FaClock className="text-muted opacity-25 mb-2" size={30} />
+                                                <p className="small text-muted fw-black text-uppercase mb-0" style={{ fontSize: '10px', letterSpacing: '0.05em' }}>Awaiting Support Review</p>
                                             </div>
                                         )}
                                     </div>
-                                </>
+                                </div>
                             )}
                         </div>
 
                         <div className="col-lg-4">
                             {user.role === 'admin' ? (
-                                <div className="card bg-dark text-white border-0 shadow-sm p-3 rounded-3">
-                                    <h6 className="fw-bold mb-3 d-flex align-items-center gap-2">
-                                        <FaUserEdit className="text-primary" /> Manage
-                                    </h6>
+                                <div className="card bg-dark text-white border-0 shadow-lg p-4 rounded-4 position-sticky" style={{ top: '20px' }}>
+                                    <h5 className="fw-black mb-4 d-flex align-items-center gap-2">
+                                        <FaUserEdit className="text-primary" /> System Control
+                                    </h5>
                                     <form onSubmit={onAdminUpdate}>
-                                        <div className="mb-3">
-                                            <label className="form-label small fw-bold text-uppercase text-white-50" style={{ fontSize: '9px' }}>Status</label>
+                                        <div className="mb-4">
+                                            <label className="form-label small fw-black text-uppercase text-white-50" style={{ fontSize: '10px' }}>Status</label>
                                             <select
-                                                className="form-select form-select-sm bg-white bg-opacity-10 border-0 text-white shadow-none"
+                                                className="form-select form-select-sm bg-white bg-opacity-10 border-0 text-white shadow-none rounded-3 py-2"
                                                 value={status}
                                                 onChange={(e) => setStatus(e.target.value)}
                                             >
@@ -307,30 +320,30 @@ function Ticket() {
                                                 <option className="text-dark" value="Closed">Closed</option>
                                             </select>
                                         </div>
-                                        <div className="mb-3">
-                                            <label className="form-label small fw-bold text-uppercase text-white-50" style={{ fontSize: '9px' }}>Reply</label>
+                                        <div className="mb-4">
+                                            <label className="form-label small fw-black text-uppercase text-white-50" style={{ fontSize: '10px' }}>Admin Response</label>
                                             <textarea
-                                                className="form-control form-control-sm bg-white bg-opacity-10 border-0 text-white shadow-none"
-                                                rows="4"
+                                                className="form-control form-control-sm bg-white bg-opacity-10 border-0 text-white shadow-none rounded-3 py-2"
+                                                rows="5"
                                                 value={adminReply}
                                                 onChange={(e) => setAdminReply(e.target.value)}
-                                                placeholder="Write a response..."
+                                                placeholder="Enter response for consumer..."
                                             ></textarea>
                                         </div>
-                                        <button className="btn btn-primary btn-sm w-100 fw-bold mb-2">
-                                            SAVE UPDATE
+                                        <button className="btn btn-primary w-100 rounded-pill py-2 fw-black shadow-sm mb-3">
+                                            SAVE CHANGES
                                         </button>
-                                        <button type="button" onClick={onDelete} className="btn btn-link text-danger w-100 fw-bold text-decoration-none small" style={{ fontSize: '10px' }}>
-                                            <FaTrash className="me-1" /> DELETE
+                                        <button type="button" onClick={onDelete} className="btn btn-link text-danger w-100 fw-black text-decoration-none small" style={{ fontSize: '10px' }}>
+                                            <FaTrash className="me-1" /> PERMANENT DELETE
                                         </button>
                                     </form>
                                 </div>
                             ) : (
-                                <div className="card bg-light border p-3 rounded-3">
-                                    <h6 className="fw-bold mb-2 d-flex align-items-center gap-2">
-                                        <FaInfoCircle className="text-primary" /> Info
+                                <div className="card bg-light border-0 shadow-sm p-4 rounded-4">
+                                    <h6 className="fw-black mb-3 d-flex align-items-center gap-2">
+                                        <FaInfoCircle className="text-primary" /> Help Center
                                     </h6>
-                                    <p className="small text-muted mb-0">This case is being handled by our technical operations team. You will be notified of any changes.</p>
+                                    <p className="small text-muted mb-0 lh-lg">This request is currently under review by our operations team. You will receive an automated notification once we provide a resolution.</p>
                                 </div>
                             )}
                         </div>
@@ -342,4 +355,3 @@ function Ticket() {
 }
 
 export default Ticket;
-

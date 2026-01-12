@@ -40,20 +40,20 @@ function Header() {
                         {user ? (
                             <>
                                 {user.role === 'admin' && (
-                                    <li className="nav-item d-none d-sm-inline">
+                                    <li className="nav-item d-none d-md-inline">
                                         <Link className="nav-link d-flex align-items-center gap-1 fw-bold px-1" to="/admin">
                                             <FaLock size={14} /> <span>Admin</span>
                                         </Link>
                                     </li>
                                 )}
-                                <li className="nav-item d-none d-sm-inline">
+                                <li className="nav-item d-none d-md-inline">
                                     <Link className="nav-link d-flex align-items-center gap-1 fw-bold px-1" to="/profile">
                                         <FaUser size={14} /> <span>Profile</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <button className="btn btn-outline-danger btn-sm d-flex align-items-center gap-1 px-3 border-0 bg-danger bg-opacity-10 text-danger" onClick={onLogout}>
-                                        <FaSignOutAlt size={12} /> <span className="d-none d-sm-inline">Logout</span>
+                                    <button className="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center border-0 bg-danger bg-opacity-10 text-danger rounded-circle p-2" onClick={onLogout} title="Logout" style={{ width: '34px', height: '34px' }}>
+                                        <FaSignOutAlt size={14} />
                                     </button>
                                 </li>
                             </>

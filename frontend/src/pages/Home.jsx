@@ -132,16 +132,16 @@ function Home() {
                 {user && user.role === 'admin' && (
                     <div className="row justify-content-center mb-5">
                         <div className="col-md-10">
-                            <div className="card border-0 bg-dark text-white p-4 p-lg-5 rounded-4 rounded-lg-5 overflow-hidden position-relative shadow-lg">
+                            <div className="card border-0 bg-dark text-white p-4 p-md-5 rounded-4 rounded-lg-5 overflow-hidden position-relative shadow-lg">
 
                                 <div className="position-relative z-1 d-flex flex-column flex-lg-row align-items-center justify-content-between gap-4">
                                     <div className="text-center text-lg-start">
-                                        <div className="badge bg-primary px-3 py-1 rounded-pill mb-3 small fw-bold">SYSTEM ADMIN</div>
-                                        <h2 className="fw-black mb-2">Administrator Console</h2>
+                                        <div className="badge bg-primary px-3 py-1 rounded-pill mb-2 small fw-bold">SYSTEM ADMIN</div>
+                                        <h2 className="fw-black mb-2" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)' }}>Admin Dashboard</h2>
                                         <p className="opacity-75 mb-0 lead small">Complete control over tickets, user accounts, and system health.</p>
                                     </div>
-                                    <Link to="/admin" className="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold text-main hover-translate transition-all d-flex align-items-center gap-3">
-                                        Launch Dashboard <FaBolt className="text-primary" />
+                                    <Link to="/admin" className="btn btn-light btn-lg px-4 py-3 rounded-pill fw-bold text-main hover-translate transition-all d-flex align-items-center justify-content-center gap-3 w-100 w-lg-auto">
+                                        Go to Dashboard <FaBolt className="text-primary" />
                                     </Link>
                                 </div>
                                 {/* Abstract Background Decor */}
