@@ -53,55 +53,53 @@ function Tickets() {
                     <nav aria-label="breadcrumb" className="mb-2">
                         <ol className="breadcrumb small text-uppercase fw-bold m-0 p-0" style={{ letterSpacing: '0.05em' }}>
                             <li className="breadcrumb-item"><Link to="/" className="text-decoration-none text-muted">Home</Link></li>
-                            <li className="breadcrumb-item active text-primary" aria-current="page">Support Requests</li>
+                            <li className="breadcrumb-item active text-primary" aria-current="page">Support</li>
                         </ol>
                     </nav>
-                    <h3 className="fw-black mb-0 letter-spacing-tight d-flex align-items-center gap-2">
-                        My Support Records
+                    <h3 className="fw-black mb-0 letter-spacing-tight d-flex align-items-center gap-2 fs-2">
+                        Support Records
                     </h3>
                 </div>
                 <div className="d-flex gap-2 w-100 w-md-auto">
-                    <Link to="/" className="btn btn-outline-dark rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2 flex-grow-1 flex-md-grow-0">
-                        Back to Home
-                    </Link>
-                    <Link to="/new-ticket" className="btn btn-primary rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2 flex-grow-1 flex-md-grow-0">
-                        <FaPlus /> New Request
+                    <Link to="/new-ticket" className="btn btn-primary rounded-pill px-4 py-2 fw-black shadow-sm d-flex align-items-center justify-content-center gap-2 flex-grow-1 flex-md-grow-0 border-0" style={{ fontSize: '13px' }}>
+                        <FaPlus size={12} /> NEW REQUEST
                     </Link>
                 </div>
             </div>
 
             {/* Practical Stats Overlay */}
-            <div className="row g-3 mb-4">
-                <div className="col-md-8">
-                    <div className="card border-0 shadow-sm rounded-3 h-100">
-                        <div className="card-body p-2 px-3 d-flex align-items-center">
-                            <div className="input-group input-group-sm bg-light rounded-pill px-2 py-1 flex-grow-1">
-                                <span className="input-group-text bg-transparent border-0"><FaSearch className="text-muted opacity-50" /></span>
+            <div className="row g-2 g-md-3 mb-4">
+                <div className="col-12 col-md-8">
+                    <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
+                        <div className="card-body p-1 px-3">
+                            <div className="input-group input-group-sm bg-transparent border-0 px-1 py-1 align-items-center">
+                                <span className="input-group-text bg-transparent border-0 ps-1"><FaSearch className="text-muted opacity-50" /></span>
                                 <input
                                     type="text"
-                                    className="form-control border-0 shadow-none bg-transparent"
-                                    placeholder="Search by subject or content..."
+                                    className="form-control border-0 shadow-none bg-transparent py-2"
+                                    placeholder="Search your records..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
+                                    style={{ fontSize: '14px' }}
                                 />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-4">
-                    <div className="card border-0 shadow-sm bg-primary bg-opacity-10 rounded-3 h-100">
+                <div className="col-12 col-md-4 d-none d-md-block">
+                    <div className="card border-0 shadow-sm bg-primary bg-opacity-10 rounded-4 h-100">
                         <div className="card-body p-3 d-flex align-items-center justify-content-between">
                             <div className="d-flex align-items-center gap-3">
                                 <div className="bg-primary text-white p-2 rounded-3">
                                     <FaTicketAlt size={16} />
                                 </div>
                                 <div>
-                                    <div className="small fw-bold text-muted text-uppercase mb-0" style={{ fontSize: '10px' }}>Total Records</div>
+                                    <div className="small fw-bold text-muted text-uppercase mb-0" style={{ fontSize: '10px' }}>Total</div>
                                     <h5 className="fw-black mb-0 text-main">{tickets.length}</h5>
                                 </div>
                             </div>
                             <div className="text-end">
-                                <div className="small fw-bold text-success text-uppercase mb-0" style={{ fontSize: '10px' }}>Active cases</div>
+                                <div className="small fw-bold text-success text-uppercase mb-0" style={{ fontSize: '10px' }}>Active</div>
                                 <h5 className="fw-black mb-0 text-success">{tickets.filter(t => t.status !== 'Closed' && t.status !== 'Resolved').length}</h5>
                             </div>
                         </div>
@@ -167,36 +165,39 @@ function Tickets() {
                 </div>
 
                 {/* Mobile Card View */}
-                <div className="d-md-none p-3">
-                    <div className="d-flex flex-column gap-3">
+                <div className="d-md-none p-2 p-md-3">
+                    <div className="d-flex flex-column gap-2 text-decoration-none">
                         {filteredTickets.map(ticket => (
                             <Link
                                 to={`/ticket/${ticket._id}`}
                                 key={ticket._id}
                                 className="text-decoration-none"
                             >
-                                <div className="card shadow-none border rounded-3 p-3 hover-glow">
-                                    <div className="d-flex justify-content-between align-items-start mb-2">
-                                        <div>
-                                            <span className="font-monospace fw-bold text-muted" style={{ fontSize: '0.7rem' }}>
+                                <div className="card shadow-sm border-0 rounded-4 overflow-hidden position-relative hover-translate transition-all mb-1" style={{ background: 'linear-gradient(to right, #ffffff, #fafafa)' }}>
+                                    <div className="card-body p-3">
+                                        <div className="d-flex justify-content-between align-items-center mb-2">
+                                            <span className="font-monospace fw-bold text-muted" style={{ fontSize: '10px' }}>
                                                 #{ticket._id.slice(-6).toUpperCase()}
                                             </span>
-                                            <h6 className="fw-bold mb-1 mt-1 text-main">{ticket.title}</h6>
+                                            <span className={`status-badge px-2 py-1 rounded-pill fw-black ${ticket.status === 'Open' ? 'bg-primary text-white' :
+                                                ticket.status === 'In Progress' ? 'bg-warning text-dark' :
+                                                    ticket.status === 'Resolved' ? 'bg-success text-white' : 'bg-danger text-white'
+                                                }`} style={{ fontSize: '9px', letterSpacing: '0.02em' }}>
+                                                {ticket.status.toUpperCase()}
+                                            </span>
                                         </div>
-                                        <span className={`status-badge px-2 py-1 rounded-pill fw-bold ${ticket.status === 'Open' ? 'bg-primary text-white' :
-                                            ticket.status === 'In Progress' ? 'bg-warning text-dark' :
-                                                ticket.status === 'Resolved' ? 'bg-success text-white' : 'bg-danger text-white'
-                                            }`} style={{ fontSize: '0.6rem' }}>
-                                            {ticket.status}
-                                        </span>
-                                    </div>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <div className="text-muted fw-bold" style={{ fontSize: '0.65rem' }}>
-                                            {new Date(ticket.createdAt).toLocaleDateString()}
+                                        <h6 className="fw-black mb-2 text-main text-truncate pe-4" style={{ letterSpacing: '-0.01em', fontSize: '15px' }}>{ticket.title}</h6>
+                                        <div className="d-flex justify-content-between align-items-center pt-2 border-top border-light">
+                                            <div className="d-flex gap-2">
+                                                <span className={`badge rounded-pill pt-1 px-2 ${ticket.priority === 'High' ? 'text-danger bg-danger bg-opacity-10' : 'text-muted bg-light'}`} style={{ fontSize: '9px' }}>
+                                                    {ticket.priority.toUpperCase()}
+                                                </span>
+                                                <span className="text-muted small d-flex align-items-center gap-1 fw-bold" style={{ fontSize: '10px' }}>
+                                                    {new Date(ticket.createdAt).toLocaleDateString()}
+                                                </span>
+                                            </div>
+                                            <div className="text-primary fw-black" style={{ fontSize: '10px' }}>VIEW <FaArrowRight size={8} /></div>
                                         </div>
-                                        <span className={`badge rounded-pill pt-1 ${ticket.priority === 'High' ? 'text-danger bg-danger bg-opacity-10 border border-danger border-opacity-10' : 'text-muted bg-light'}`} style={{ fontSize: '0.55rem' }}>
-                                            {ticket.priority.toUpperCase()}
-                                        </span>
                                     </div>
                                 </div>
                             </Link>

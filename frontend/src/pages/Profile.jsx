@@ -19,15 +19,15 @@ function Profile() {
                     <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 gap-3">
                         <div>
                             <nav aria-label="breadcrumb" className="mb-2">
-                                <ol className="breadcrumb small text-uppercase fw-bold m-0 p-0" style={{ letterSpacing: '0.05em' }}>
+                                <ol className="breadcrumb small text-uppercase fw-black m-0 p-0" style={{ letterSpacing: '0.05em' }}>
                                     <li className="breadcrumb-item"><Link to="/" className="text-decoration-none text-muted">Home</Link></li>
-                                    <li className="breadcrumb-item active text-primary" aria-current="page">User Settings</li>
+                                    <li className="breadcrumb-item active text-primary" aria-current="page">Settings</li>
                                 </ol>
                             </nav>
-                            <h4 className="fw-bold mb-0">Account Profile</h4>
+                            <h3 className="fw-black mb-0 fs-2">Account Profile</h3>
                         </div>
-                        <Link to="/" className="btn btn-outline-primary btn-sm rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2">
-                            <FaIdBadge /> RETURN TO DASHBOARD
+                        <Link to="/" className="btn btn-dark btn-sm rounded-pill px-4 py-2 fw-black shadow-sm d-flex align-items-center justify-content-center gap-2 border-0" style={{ fontSize: '12px' }}>
+                            RETURN TO HOME
                         </Link>
                     </div>
 

@@ -81,16 +81,16 @@ function AdminDashboard() {
                     <nav aria-label="breadcrumb" className="mb-2">
                         <ol className="breadcrumb small text-uppercase fw-bold m-0 p-0" style={{ letterSpacing: '0.05em' }}>
                             <li className="breadcrumb-item"><Link to="/" className="text-decoration-none text-muted">Home</Link></li>
-                            <li className="breadcrumb-item active text-primary" aria-current="page">Admin Control Center</li>
+                            <li className="breadcrumb-item active text-primary" aria-current="page">Admin Control</li>
                         </ol>
                     </nav>
-                    <h3 className="fw-black mb-0 letter-spacing-tight d-flex align-items-center gap-2">
+                    <h3 className="fw-black mb-0 letter-spacing-tight d-flex align-items-center gap-2 fs-2 fs-md-3">
                         System Overview
                     </h3>
                 </div>
                 <div className="d-flex gap-2 w-100 w-md-auto">
-                    <Link to="/admin/users" className="btn btn-outline-dark btn-sm rounded-pill px-3 fw-bold d-flex align-items-center justify-content-center gap-2 flex-grow-1 flex-md-grow-0">
-                        <FaUsers /> User Directory
+                    <Link to="/admin/users" className="btn btn-dark btn-sm rounded-pill px-4 py-2 fw-bold d-flex align-items-center justify-content-center gap-2 flex-grow-1 flex-md-grow-0 shadow-sm border-0">
+                        <FaUsers size={14} /> <span className="small">USER DIRECTORY</span>
                     </Link>
                 </div>
 
@@ -124,31 +124,35 @@ function AdminDashboard() {
             </div>
 
             {/* Advanced Filtration Toolbar */}
-            <div className="row g-3 mb-4">
-                <div className="col-lg-8">
-                    <div className="card border-0 shadow-sm rounded-3">
-                        <div className="card-body p-2 px-3">
-                            <div className="input-group input-group-sm bg-light rounded-pill px-2 py-1">
-                                <span className="input-group-text bg-transparent border-0"><FaSearch className="text-muted opacity-50" /></span>
+            <div className="row g-2 g-md-3 mb-4">
+                <div className="col-12 col-lg-8">
+                    <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
+                        <div className="card-body p-1 px-3">
+                            <div className="input-group input-group-sm bg-transparent border-0 px-1 py-1 align-items-center">
+                                <span className="input-group-text bg-transparent border-0 ps-1"><FaSearch className="text-muted opacity-50" /></span>
                                 <input
                                     type="text"
-                                    className="form-control border-0 shadow-none bg-transparent"
-                                    placeholder="Search by ID, User, or Content..."
+                                    className="form-control border-0 shadow-none bg-transparent py-2"
+                                    placeholder="Search reference, user..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
+                                    style={{ fontSize: '14px' }}
                                 />
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-4">
-                    <div className="card border-0 shadow-sm rounded-3 h-100">
+                <div className="col-12 col-lg-4">
+                    <div className="card border-0 shadow-sm rounded-4 h-100">
                         <div className="card-body p-2 px-3 d-flex align-items-center gap-2">
-                            <FaFilter className="text-muted small" />
+                            <div className="bg-light p-1 rounded-circle d-flex align-items-center justify-content-center" style={{ width: '24px', height: '24px' }}>
+                                <FaFilter size={10} className="text-muted" />
+                            </div>
                             <select
-                                className="form-select form-select-sm border-0 bg-transparent fw-bold text-primary shadow-none"
+                                className="form-select form-select-sm border-0 bg-transparent fw-bold text-primary shadow-none py-1"
                                 value={statusFilter}
                                 onChange={(e) => setStatusFilter(e.target.value)}
+                                style={{ fontSize: '14px' }}
                             >
                                 <option value="All">All Ticket States</option>
                                 <option value="Open">Unassigned / Open</option>
@@ -228,34 +232,42 @@ function AdminDashboard() {
                 </div>
 
                 {/* Mobile Admin Card List */}
-                <div className="d-lg-none p-3">
-                    <div className="d-flex flex-column gap-3">
+                <div className="d-lg-none p-2 p-md-3">
+                    <div className="d-flex flex-column gap-2 gap-md-3">
                         {filteredTickets.map(ticket => (
                             <div
                                 key={ticket._id}
-                                className="card shadow-none border rounded-3 p-3 hover-glow transition-all"
+                                className="card shadow-sm border-0 rounded-4 overflow-hidden position-relative hover-translate transition-all mb-1"
                                 onClick={() => navigate(`/ticket/${ticket._id}`)}
-                                style={{ cursor: 'pointer' }}
+                                style={{ cursor: 'pointer', background: 'linear-gradient(to right, #ffffff, #fafafa)' }}
                             >
-                                <div className="d-flex justify-content-between align-items-start mb-2">
-                                    <div className="d-flex align-items-center gap-2">
-                                        <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style={{ width: '24px', height: '24px', fontSize: '0.6rem' }}>
-                                            {ticket.user?.name?.charAt(0) || '?'}
+                                <div className="card-body p-3">
+                                    <div className="d-flex justify-content-between align-items-center mb-2">
+                                        <div className="d-flex align-items-center gap-2">
+                                            <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-black shadow-sm" style={{ width: '28px', height: '28px', fontSize: '10px' }}>
+                                                {ticket.user?.name?.charAt(0).toUpperCase() || '?'}
+                                            </div>
+                                            <div>
+                                                <div className="fw-bold small text-main lh-1" style={{ fontSize: '13px' }}>{ticket.user?.name || 'User'}</div>
+                                                <div className="text-muted" style={{ fontSize: '10px' }}>#{ticket._id.slice(-6).toUpperCase()}</div>
+                                            </div>
                                         </div>
-                                        <span className="fw-bold small text-main">{ticket.user?.name || 'User'}</span>
+                                        <span className={`status-badge px-2 py-1 rounded-pill fw-black ${getStatusBadge(ticket.status)}`} style={{ fontSize: '9px', letterSpacing: '0.02em' }}>
+                                            {ticket.status.toUpperCase()}
+                                        </span>
                                     </div>
-                                    <span className={`status-badge px-2 py-1 rounded-pill fw-bold ${getStatusBadge(ticket.status)}`} style={{ fontSize: '0.55rem' }}>
-                                        {ticket.status}
-                                    </span>
-                                </div>
-                                <h6 className="fw-bold mb-2 text-main text-truncate">{ticket.title}</h6>
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <span className="font-monospace fw-bold text-muted" style={{ fontSize: '0.65rem' }}>
-                                        #{ticket._id.slice(-6).toUpperCase()}
-                                    </span>
-                                    <span className={`badge rounded-pill pt-1 ${ticket.priority === 'High' ? 'text-danger bg-danger bg-opacity-10 border border-danger border-opacity-10' : 'text-muted bg-light'}`} style={{ fontSize: '0.55rem' }}>
-                                        {ticket.priority.toUpperCase()}
-                                    </span>
+                                    <h6 className="fw-black mb-2 text-main text-truncate pe-4" style={{ letterSpacing: '-0.01em', fontSize: '15px' }}>{ticket.title}</h6>
+                                    <div className="d-flex justify-content-between align-items-center pt-2 border-top border-light">
+                                        <div className="d-flex gap-2">
+                                            <span className={`badge rounded-pill pt-1 px-2 ${ticket.priority === 'High' ? 'text-danger bg-danger bg-opacity-10' : 'text-muted bg-light'}`} style={{ fontSize: '9px' }}>
+                                                {ticket.priority.toUpperCase()}
+                                            </span>
+                                            <span className="text-muted small d-flex align-items-center gap-1 fw-bold" style={{ fontSize: '10px' }}>
+                                                <FaCalendarAlt size={10} className="mb-1" /> {new Date(ticket.createdAt).toLocaleDateString()}
+                                            </span>
+                                        </div>
+                                        <div className="text-primary fw-black" style={{ fontSize: '10px' }}>MANAGE <FaArrowRight size={8} /></div>
+                                    </div>
                                 </div>
                             </div>
                         ))}
